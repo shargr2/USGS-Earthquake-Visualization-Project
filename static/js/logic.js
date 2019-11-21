@@ -20,6 +20,7 @@ url = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/4.5_month.geojs
 d3.json(url, function(data) {
   for (var i = 0; i < data.features.length; i ++){
     var magnitude = +data.features[i].properties.mag;
+    console.log(magnitude);
     var geojsonMarkerOptions = {
       radius:  magnitude * 3,
       fillColor: "ff7800",
