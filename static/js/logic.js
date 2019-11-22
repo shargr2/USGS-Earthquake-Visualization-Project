@@ -18,23 +18,20 @@ url = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/4.5_month.geojs
 // Perform a GET request to the query URL
 // Grabbing our GeoJSON data..
 d3.json(url, function(data) {
-  for (var i = 0; i < data.features.length; i ++){
-    var magnitude = +data.features[i].properties.mag;
-    console.log(magnitude);
-    var geojsonMarkerOptions = {
-      radius:  magnitude * 3,
-      fillColor: "ff7800",
-      color: "#000",
-      weight: 1,
-      opacity: 1,
-      fillOpacity: 0.8
-    };
-    L.geoJSON(data, {
-      pointToLayer: function (feature, latlng) {
-        return L.circleMarker(latlng, geojsonMarkerOptions);
-      }
-  }).addTo(map);
-  };
+  // Creating a GeoJSON layer with the retrieved data
+  var geojsonMarkerOptions = {
+    radius: 8,
+    fillColor: "#ff7800",
+    color: "#000",
+    weight: 1,
+    opacity: 1,
+    fillOpacity: 0.8
+};
+L.geoJSON(data, {
+    pointToLayer: function (feature, latlng) {
+      return L.circleMarker(latlng, geojsonMarkerOptions);
+    }
+}).addTo(map);
 });
 
 
