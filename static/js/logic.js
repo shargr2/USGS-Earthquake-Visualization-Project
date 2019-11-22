@@ -10,28 +10,48 @@ L.tileLayer("https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={
   maxZoom: 18,
   id: "mapbox.streets",
   accessToken: "pk.eyJ1Ijoic2hhcmdyMiIsImEiOiJjazJiMTZjOWc0ZXF1M25tdGIxbngzbzU3In0.2Q1CoZczQAGeZg02NNQ_6w"
-}).addTo(map);
+} ).addTo(map);
 
 
 // Store our API endpoint inside queryUrl
-url = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/4.5_month.geojson"
+url = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson"
 // Perform a GET request to the query URL
 // Grabbing our GeoJSON data..
 d3.json(url, function(data) {
-  // Creating a GeoJSON layer with the retrieved data
+  
+  var magnitude_list = [];
+  for (var i = 0; i < data.features.length; i ++){
+    var magnitude = +data.features[i].properties.mag;
+    magnitude_list.push(magnitude);
+  }  
+
+  //loop throw places and create markers for each
+  //Had to add limit since leaflet cannot support many markers in plot
+  for (var i = 0; i < 50; i++) {
+    // Conditionals for countries points
+    var color = "";
+    if (magnitude_list[i] > 3) {
+      color = "red";
+    }
+    else {
+      color = "yellow";
+    }
+
+  // Add circles to map  
   var geojsonMarkerOptions = {
-    radius: 8,
-    fillColor: "#ff7800",
-    color: "#000",
+    radius:  magnitude * 3,
+    fillColor: color,
+    color: "white",
     weight: 1,
     opacity: 1,
     fillOpacity: 0.8
-};
-L.geoJSON(data, {
+  };
+  L.geoJSON(data, {
     pointToLayer: function (feature, latlng) {
       return L.circleMarker(latlng, geojsonMarkerOptions);
     }
 }).addTo(map);
+};
 });
 
 
