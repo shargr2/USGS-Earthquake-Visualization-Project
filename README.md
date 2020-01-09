@@ -11,9 +11,9 @@ I created visualisations using Javascript & Leaflet for all earthquake data in t
 
 2. **Import & Visualize the Data**
 
-I created a map using Leaflet that plots all of the earthquakes from the data set based on their longitude and latitude.
+   * I created a map using Leaflet that plots all of the earthquakes from the data set based on their longitude and latitude.
 
-   * Data markers should reflect the magnitude of the earthquake in their size and color. Earthquakes with higher magnitudes are appear larger and darker in color.
+   * Data markers reflect the magnitude of the earthquake in their size and color. Earthquakes with higher magnitudes are appear larger and darker in color.
 
    * I included popups that provide additional information about the earthquake when a marker is clicked.
 
